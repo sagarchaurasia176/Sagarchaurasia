@@ -73,28 +73,28 @@ export default function Portfolio() {
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setResult("Sending...");
-  
+
     const formData = new FormData(event.currentTarget);
-  
+
     formData.append("access_key", "581ba174-9e93-4c24-8f00-fbdcd49d944f");
-  
+
     const response = await fetch("https://api.web3forms.com/submit", {
       method: "POST",
       body: formData,
     });
-  
+
     const data = await response.json();
-  
+
     if (data.success) {
       setResult("Thank you so much for your message! I'll get back to you soon.");
-      
+
       event.currentTarget.reset(); // safer than event.target
     } else {
       console.log("Error", data);
       setResult(data.message || "Something went wrong.");
     }
   };
-  
+
   // Track scroll position for animations
   useEffect(() => {
     const handleScroll = () => {
@@ -269,7 +269,7 @@ export default function Portfolio() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-gray-100 font-sans">
+    <div className=" bg-slate-950 text-gray-100 font-sans">
       {/* Header */}
       <motion.header
         initial={{ y: -100 }}
@@ -288,406 +288,419 @@ export default function Portfolio() {
             <img src={logo} alt="Logo" className="h-8 w-8 mr-2 inline-block" />
           </motion.a>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
-            {["home", "projects", "skills", "experience", "contact"].map(
-              (item) => (
-                <motion.button
-                  key={item}
-                  onClick={() => scrollToSection(item)}
-                  className={`text-sm font-medium ${
-                    activeSection === item
-                      ? "text-indigo-400"
-                      : "text-gray-400 hover:text-indigo-300"
-                  } transition-colors`}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  {item.charAt(0).toUpperCase() + item.slice(1)}
-                </motion.button>
-              )
-            )}
-          </nav>
 
-          {/* Mobile Menu Button */}
-          <motion.button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden text-gray-400 hover:text-indigo-300 transition-colors"
-            whileTap={{ scale: 0.9 }}
-          >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </motion.button>
-        </div>
-
-        {/* Mobile Navigation */}
-        <AnimatePresence>
-          {isMenuOpen && (
-            <motion.div
-              className="md:hidden bg-slate-900 shadow-lg border-b border-slate-800"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <div className="container mx-auto px-4 py-3 flex flex-col space-y-3">
-                {["home", "projects", "skills", "experience", "contact"].map(
-                  (item) => (
-                    <motion.button
-                      key={item}
-                      onClick={() => scrollToSection(item)}
-                      className={`text-sm font-medium py-2 text-left ${
-                        activeSection === item
-                          ? "text-indigo-400"
-                          : "text-gray-400"
-                      } transition-colors`}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      {item.charAt(0).toUpperCase() + item.slice(1)}
-                    </motion.button>
-                  )
-                )}
-              </div>
-            </motion.div>
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex space-x-8">
+          {["home", "projects", "skills", "experience", "contact"].map(
+            (item) => (
+              <motion.button
+                key={item}
+                onClick={() => scrollToSection(item)}
+                className={`text-sm font-medium ${
+                  activeSection === item
+                    ? "text-indigo-400"
+                    : "text-gray-400 hover:text-indigo-300"
+                } transition-colors`}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {item.charAt(0).toUpperCase() + item.slice(1)}
+              </motion.button>
+            )
           )}
-        </AnimatePresence>
-      </motion.header>
+        </nav>
+           {/* Mobile Menu Button */}
+        <motion.button
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className="md:hidden text-gray-400 hover:text-indigo-300 transition-colors"
+          whileTap={{ scale: 0.9 }}
+        >
+          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </motion.button>
+      </div>
 
-      {/* Hero Section */}
-      <section
-        id="home"
-        className="pt-32 pb-20 bg-gradient-to-br from-slate-900 to-slate-950"
-      >
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center">
-            <motion.div
-              className="md:w-1/2 mb-10 md:mb-0"
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <motion.h1
-                className="text-4xl md:text-6xl font-extrabold mb-6 leading-tight tracking-wide drop-shadow-lg"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2, duration: 0.8 }}
-              >
-                <span className="text-base md:text-lg bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent drop-shadow-md font-semibold">
-                  Hello World! My name is
-                </span>
-                <br />
-                <span className="text-gray-100 drop-shadow-lg font-sans">
-                  Sagar Chaurasia
-                </span>
-              </motion.h1>
-              <motion.p
-                className="text-2xl md:text-4xl font-extrabold mb-6 leading-snug tracking-wide text-white drop-shadow-[0_4px_6px_rgba(0,0,0,0.3)]"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.4, duration: 0.8 }}
-              >
-                <span
-                  className={`typing-effect block w-fit ${
-                    hideCursor ? "cursor-hidden" : ""
-                  }`}
-                >
-                  I love to explore & code!
-                </span>
-              </motion.p>
+      
+      {/* Mobile Navigation */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            className="md:hidden bg-slate-900 shadow-lg border-b border-slate-800"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="container mx-auto px-4 py-3 flex flex-col space-y-3">
+              {["home", "projects", "skills", "experience", "contact"].map(
+                (item) => (
+                  <motion.button
+                    key={item}
+                    onClick={() => {
+                      scrollToSection(item);
+                      setIsMenuOpen(false); // Close menu after selection
+                    }}
+                    className={`text-sm font-medium py-2 text-left ${
+                      activeSection === item
+                        ? "text-indigo-400"
+                        : "text-gray-400"
+                    } transition-colors`}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    {item.charAt(0).toUpperCase() + item.slice(1)}
+                  </motion.button>
+                )
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.header>
 
-              <motion.div
-                className=" text-zince-800 mb-8 max-w-lg"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5, duration: 0.8 }}
-              >
-                An aspiring software engineer with the ability to grow as an
-                individual and learn in the surrounding of talented people. I am
-                always open for discussions. &nbsp;
-                <a
-                  href="https://www.linkedin.com/in/sagarchaurasia74/"
-                  target="_blank"
-                  className="  text-orange-200 underline font-bold"
-                >
-                  @Linkedin
-                </a>
-              </motion.div>
-
-              <motion.div
-                className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.6, duration: 0.8 }}
-              >
-                <motion.button
-                  onClick={() => scrollToSection("projects")}
-                  className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white py-3 px-8 rounded-lg font-medium flex items-center justify-center shadow-lg hover:shadow-indigo-500/20 transition-all"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Explore My Work <ChevronRight size={18} className="ml-2" />
-                </motion.button>
-                <motion.button
-                  onClick={() => scrollToSection("contact")}
-                  className="bg-slate-800 hover:bg-slate-700 text-indigo-400 border border-slate-700 py-3 px-8 rounded-lg font-medium transition-colors"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Let's Collaborate
-                </motion.button>
-              </motion.div>
-            </motion.div>
-            <motion.div
-              className="md:w-1/2 flex justify-center"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
+     {/* Hero Section */}
+     <section
+      id="home"
+      className="pt-28 sm:pt-32 pb-16 sm:pb-20 bg-gradient-to-br from-slate-900 to-slate-950"
+    >
+      <div className="container mx-auto px-4">
+        <div className="flex flex-col md:flex-row items-center">
+          <motion.div
+            className="w-full md:w-1/2 mb-10 md:mb-0"
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <motion.h1
+              className="text-3xl sm:text-4xl md:text-6xl font-extrabold mb-6 leading-tight tracking-wide drop-shadow-lg"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.8 }}
             >
-              <div className="relative">
-                <motion.div
-                  className="w-64 h-64 md:w-80 md:h-80 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-full overflow-hidden shadow-xl"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <img
-                    src={logos}
-                    alt="Portfolio Owner"
-                    className="w-full h-full object-cover opacity-90"
-                  />
-                </motion.div>
-                <motion.div
-                  className="absolute -bottom-6 -right-6 bg-slate-800 shadow-lg rounded-lg p-4 w-32 text-center border border-slate-700"
-                  initial={{ opacity: 0, scale: 0, y: 20 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  transition={{ delay: 0.8, duration: 0.5 }}
-                >
-                  <p className="font-bold text-indigo-400">Software</p>
-                  <p className="text-sm text-gray-400">Developer</p>
-                </motion.div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+              <span className="text-base md:text-lg bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent drop-shadow-md font-semibold">
+                Hello World! My name is
+              </span>
+              <br />
+              <span className="text-gray-100 drop-shadow-lg font-sans">
+                Sagar Chaurasia
+              </span>
+            </motion.h1>
+            <motion.p
+              className="text-xl sm:text-2xl md:text-4xl font-extrabold mb-6 leading-snug tracking-wide text-white drop-shadow-[0_4px_6px_rgba(0,0,0,0.3)]"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4, duration: 0.8 }}
+            >
+              <span
+                className={`typing-effect block w-fit ${
+                  hideCursor ? "cursor-hidden" : ""
+                }`}
+              >
+                I love to explore & code!
+              </span>
+            </motion.p>
 
-      {/* About sections */}
-      <section
-        id="about"
-        className="py-20 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-950 border-t border-slate-800"
-      >
-        <div className="container mx-auto px-4">
+            <motion.div
+              className="text-gray-400 mb-8 max-w-lg"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5, duration: 0.8 }}
+            >
+              An aspiring software engineer with the ability to grow as an
+              individual and learn in the surrounding of talented people. I am
+              always open for discussions. &nbsp;
+              <a
+                href="https://www.linkedin.com/in/sagarchaurasia74/"
+                target="_blank"
+                className="text-orange-200 underline font-bold"
+              >
+                @Linkedin
+              </a>
+            </motion.div>
+
+            <motion.div
+              className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.6, duration: 0.8 }}
+            >
+              <motion.button
+                onClick={() => scrollToSection("projects")}
+                className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white py-3 px-8 rounded-lg font-medium flex items-center justify-center shadow-lg hover:shadow-indigo-500/20 transition-all"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Explore My Work <ChevronRight size={18} className="ml-2" />
+              </motion.button>
+              <motion.button
+                onClick={() => scrollToSection("contact")}
+                className="bg-slate-800 hover:bg-slate-700 text-indigo-400 border border-slate-700 py-3 px-8 rounded-lg font-medium transition-colors"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Let's Collaborate
+              </motion.button>
+            </motion.div>
+          </motion.div>
           <motion.div
-            className="text-center mb-16"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={fadeInUp}
-          ></motion.div>
-
-          <div className="flex flex-col md:flex-row items-center gap-12">
-            {/* Image Section */}
-            <motion.div
-              className="md:w-1/3"
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <div className="relative">
-                <div className="w-full h-80 bg-slate-800 rounded-xl overflow-hidden shadow-lg border-4 border-indigo-500/30">
-                  <img
-                    src={Sagar}
-                    alt="Sagar Chaurasia"
-                    className="w-full h-full object-cover object-top"
-                  />
-                </div>
-                <motion.div
-                  className="absolute -bottom-4 -right-4 bg-slate-900 px-4 py-2 rounded-lg border border-slate-700 shadow-lg"
-                  initial={{ scale: 0 }}
-                  whileInView={{ scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.4 }}
-                >
-                  <p className="text-indigo-400 font-medium">Sagar Chaurasia</p>
-                </motion.div>
-              </div>
-            </motion.div>
-
-            {/* Content Section */}
-            <motion.div
-              className="md:w-2/3"
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <h3 className="text-3xl  font-bold text-gray-100 mb-6">
-                About me : <code>Passionate Developer & Problem Solver</code>
-              </h3>
-
-              <div className="gap-12 space-y-6 text-gray-400">
-                <p className="text-lg">
-                  Hello! Interestingly, I completed my diploma in 2023, and
-                  shortly after, I embarked on my B.Tech journey. It was during
-                  my diploma years that I discovered my passion for coding and
-                  entered the world of programming. Since then, I've been
-                  dedicated to learning various programming languages and
-                  solving complex problems related to data structures and
-                  algorithms. Above all, I consider myself a Problem Solver.
-                </p>
-
-                <p className="text-lg">
-                  Currently, I'm pursuing my Bachelors in Computer Science and
-                  Engineering (2023-2026) with an 8.49 GPA aggregate.
-                </p>
-
-                <p className="text-lg">
-                  During this journey, I’ve developed strong skills in Web
-                  Development, having built a full-stack project and created two
-                  Chrome extensions, each receiving a{" "}
-                  <b className="text-white  bg-red-400  rounded-b-xl p-1">
-                    4.5
-                  </b>{" "}
-                  rating on the Chrome Web Store.
-                </p>
-
-                <p className="text-lg mt-4">My project tech stack includes:</p>
-                <div className="text-sm mt-2 space-x-3">
-                  <span className="bg-teal-500 text-white px-2 py-1 rounded-md">
-                    HTML
-                  </span>
-                  <span className="bg-blue-600 text-white px-2 py-1 rounded-md">
-                    CSS
-                  </span>
-                  <span className="bg-yellow-500 text-black px-2 py-1 rounded-md">
-                    JavaScript
-                  </span>
-                  <span className="bg-indigo-600 text-white px-2 py-1 rounded-md">
-                    React.js
-                  </span>
-                  <span className="bg-green-600 text-white px-2 py-1 rounded-md">
-                    Node.js
-                  </span>
-                  <span className="bg-orange-500 text-white px-2 py-1 rounded-md">
-                    Express.js
-                  </span>
-                  <span className="bg-red-500 text-white px-2 py-1 rounded-md">
-                    Docker
-                  </span>
-                  <span className="bg-orange-500 text-white px-2 py-1 rounded-md">
-                    Cloudflare
-                  </span>
-                  <span className="bg-gray-700 text-white px-2 py-1 rounded-md">
-                    Animation Libraries
-                  </span>
-                </div>
-              </div>
-              {/* GitHub Button */}
+            className="w-full md:w-1/2 flex justify-center"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2, duration: 0.8 }}
+          >
+            <div className="relative">
               <motion.div
-                className="mt-8 text-center flex gap-12  justify-center items-center"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.6 }}
+                className="w-56 h-56 sm:w-64 sm:h-64 md:w-80 md:h-80 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-full overflow-hidden shadow-xl"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
               >
-                <a
-                  href="https://github.com/sagarchaurasia176?tab=repositories"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <motion.button
-                    className="bg-indigo-600 cursor-pointer hover:bg-indigo-500 text-white border border-indigo-500 py-3 px-6 rounded-lg font-medium transition-colors flex items-center mx-auto"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Github className="" size={18} />
-                    View My GitHub
-                  </motion.button>
-                </a>
-
-                <a
-                  href="/resume.pdf"
-                  download="Sagar_Chaurasia_Resume.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <motion.button
-                    className="bg-green-600 cursor-pointer hover:bg-green-500 text-white border border-green-500 py-3 px-6 rounded-lg font-medium transition-colors flex items-center mx-auto gap-2"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    📄 Download Resume
-                  </motion.button>
-                </a>
+                <img
+                  src={logos}
+                  alt="Portfolio Owner"
+                  className="w-full h-full object-cover opacity-90"
+                />
               </motion.div>
-            </motion.div>
-            {/* Resume */}
-          </div>
-        </div>
-      </section>
-
-      {/* Projects Section */}
-      <section id="projects" className="py-20 bg-slate-900">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-2 text-gray-100">
-              Crafted Solutions
-            </h2>
-            <p className="text-gray-400 max-w-lg mx-auto">
-              Each project represents a unique challenge solved with innovative
-              thinking and technical excellence.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project) => (
-              <div
-                key={project.id}
-                className="bg-slate-800 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-slate-700 hover:border-indigo-500 transform hover:-translate-y-2"
+              <motion.div
+                className="absolute -bottom-6 -right-6 bg-slate-800 shadow-lg rounded-lg p-3 sm:p-4 w-28 sm:w-32 text-center border border-slate-700"
+                initial={{ opacity: 0, scale: 0, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ delay: 0.8, duration: 0.5 }}
               >
-                <div className="h-48 overflow-hidden">
-                  <img
-                    src={project.imageUrl}
-                    alt={project.title}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2 text-gray-100">
-                    {project.title}
-                  </h3>
-                  <p className="text-gray-400 mb-4">{project.description}</p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tags.map((tag, index) => (
-                      <span
-                        key={index}
-                        className="text-xs bg-slate-700 text-indigo-300 px-3 py-1 rounded-full"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="flex space-x-4">
-                    <a
-                      href={project.LiveUrl}
-                      className="text-indigo-400 hover:text-indigo-300 font-medium flex items-center transition-colors hover:translate-x-1"
+                <p className="font-bold text-indigo-400">Software</p>
+                <p className="text-sm text-gray-400">Developer</p>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+
+
+    {/* about section */}
+                  
+
+    <section
+      id="about"
+      className="py-16 sm:py-20 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-950 border-t border-slate-800"
+    >
+      <div className="container mx-auto px-4">
+        <motion.div
+          className="text-center mb-16"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={fadeInUp}
+        ></motion.div>
+
+        <div className="flex flex-col md:flex-row items-center gap-8 sm:gap-12">
+          {/* Image Section */}
+          <motion.div
+            className="w-full md:w-1/3"
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="relative">
+              <div className="w-full h-64 sm:h-80 bg-slate-800 rounded-xl overflow-hidden shadow-lg border-4 border-indigo-500/30">
+                <img
+                  src={Sagar}
+                  alt="Sagar Chaurasia"
+                  className="w-full h-full object-cover object-top"
+                />
+              </div>
+              <motion.div
+                className="absolute -bottom-4 -right-4 bg-slate-900 px-4 py-2 rounded-lg border border-slate-700 shadow-lg"
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4 }}
+              >
+                <p className="text-indigo-400 font-medium">Sagar Chaurasia</p>
+              </motion.div>
+            </div>
+          </motion.div>
+
+          {/* Content Section */}
+          <motion.div
+            className="w-full md:w-2/3 mt-8 md:mt-0"
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h3 className="text-2xl sm:text-3xl font-bold text-gray-100 mb-6">
+              About me : <code>Passionate Developer & Problem Solver</code>
+            </h3>
+
+            <div className="gap-12 space-y-4 sm:space-y-6 text-gray-400">
+              <p className="text-base sm:text-lg">
+                Hello! Interestingly, I completed my diploma in 2023, and
+                shortly after, I embarked on my B.Tech journey. It was during
+                my diploma years that I discovered my passion for coding and
+                entered the world of programming. Since then, I've been
+                dedicated to learning various programming languages and
+                solving complex problems related to data structures and
+                algorithms. Above all, I consider myself a Problem Solver.
+              </p>
+
+              <p className="text-base sm:text-lg">
+                Currently, I'm pursuing my Bachelors in Computer Science and
+                Engineering (2023-2026) with an 8.49 GPA aggregate.
+              </p>
+
+              <p className="text-base sm:text-lg">
+                During this journey, I've developed strong skills in Web
+                Development, having built a full-stack project and created two
+                Chrome extensions, each receiving a{" "}
+                <b className="text-white bg-red-400 rounded-b-xl p-1">
+                  4.5
+                </b>{" "}
+                rating on the Chrome Web Store.
+              </p>
+
+              <p className="text-base sm:text-lg mt-4">My project tech stack includes:</p>
+              <div className="flex flex-wrap text-xs sm:text-sm mt-2 gap-2 sm:gap-3">
+                <span className="bg-teal-500 text-white px-2 py-1 rounded-md">
+                  HTML
+                </span>
+                <span className="bg-blue-600 text-white px-2 py-1 rounded-md">
+                  CSS
+                </span>
+                <span className="bg-yellow-500 text-black px-2 py-1 rounded-md">
+                  JavaScript
+                </span>
+                <span className="bg-indigo-600 text-white px-2 py-1 rounded-md">
+                  React.js
+                </span>
+                <span className="bg-green-600 text-white px-2 py-1 rounded-md">
+                  Node.js
+                </span>
+                <span className="bg-orange-500 text-white px-2 py-1 rounded-md">
+                  Express.js
+                </span>
+                <span className="bg-red-500 text-white px-2 py-1 rounded-md">
+                  Docker
+                </span>
+                <span className="bg-orange-500 text-white px-2 py-1 rounded-md">
+                  Cloudflare
+                </span>
+                <span className="bg-gray-700 text-white px-2 py-1 rounded-md">
+                  Animation Libraries
+                </span>
+              </div>
+            </div>
+            {/* GitHub Button */}
+            <motion.div
+              className="mt-8 flex flex-col sm:flex-row gap-4 sm:gap-12 justify-center items-center"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.6 }}
+            >
+              <a
+                href="https://github.com/sagarchaurasia176?tab=repositories"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto"
+              >
+                <motion.button
+                  className="bg-indigo-600 w-full cursor-pointer hover:bg-indigo-500 text-white border border-indigo-500 py-3 px-6 rounded-lg font-medium transition-colors flex items-center justify-center gap-2"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Github size={18} />
+                  View My GitHub
+                </motion.button>
+              </a>
+
+              <a
+                href="/resume.pdf"
+                download="Sagar_Chaurasia_Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto"
+              >
+                <motion.button
+                  className="bg-green-600 w-full cursor-pointer hover:bg-green-500 text-white border border-green-500 py-3 px-6 rounded-lg font-medium transition-colors flex items-center justify-center gap-2"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  📄 Download Resume
+                </motion.button>
+              </a>
+            </motion.div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+
+
+        {/* Projects Section */}
+        <section id="projects" className="py-16 sm:py-20 bg-slate-900">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-2 text-gray-100">
+            Crafted Solutions
+          </h2>
+          <p className="text-gray-400 max-w-lg mx-auto">
+            Each project represents a unique challenge solved with innovative
+            thinking and technical excellence.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          {projects.map((project) => (
+            <div
+              key={project.id}
+              className="bg-slate-800 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-slate-700 hover:border-indigo-500 transform hover:-translate-y-2"
+            >
+              <div className="h-40 sm:h-48 overflow-hidden">
+                <img
+                  src={project.imageUrl}
+                  alt={project.title}
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div className="p-4 sm:p-6">
+                <h3 className="text-lg sm:text-xl font-bold mb-2 text-gray-100">
+                  {project.title}
+                </h3>
+                <p className="text-gray-400 mb-4 text-sm sm:text-base">{project.description}</p>
+                <div className="flex flex-wrap gap-1 sm:gap-2 mb-4">
+                  {project.tags.map((tag, index) => (
+                    <span
+                      key={index}
+                      className="text-xs bg-slate-700 text-indigo-300 px-2 sm:px-3 py-1 rounded-full"
                     >
-                      Live
-                      <ExternalLink size={16} className="ml-1" />
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <div className="flex space-x-4">
+                  <a
+                    href={project.LiveUrl}
+                    className="text-indigo-400 hover:text-indigo-300 font-medium flex items-center transition-colors hover:translate-x-1"
+                  >
+                    Live
+                    <ExternalLink size={16} className="ml-1" />
+                  </a>
+                  {project.githubUrl && (
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      className="text-gray-400 hover:text-gray-300 font-medium flex items-center transition-colors hover:translate-x-1"
+                    >
+                      GitHub <Github size={16} className="ml-1" />
                     </a>
-                    {project.githubUrl && (
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        className="text-gray-400 hover:text-gray-300 font-medium flex items-center transition-colors hover:translate-x-1"
-                      >
-                        GitHub <Github size={16} className="ml-1" />
-                      </a>
-                    )}
-                  </div>
+                  )}
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
+        </div>
+
+
+         
+         {/* stop */}
           <div className="text-center mt-12">
             <p className=" text-indigo-400 text-3xl  py-3 px-8 rounded-lg   font-semibold transition-colors">
               Other Noteworthy All Projects <br />
@@ -898,9 +911,8 @@ export default function Portfolio() {
             {experiences.map((exp, index) => (
               <motion.div
                 key={exp.id}
-                className={`flex flex-col md:flex-row ${
-                  index !== experiences.length - 1 ? "mb-16" : ""
-                }`}
+                className={`flex flex-col md:flex-row ${index !== experiences.length - 1 ? "mb-16" : ""
+                  }`}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -988,7 +1000,7 @@ export default function Portfolio() {
                     <User size={20} className="mr-3 text-indigo-400" />
                     <span>SagarChaurasia</span>
                   </motion.div>
-                  
+
                   <motion.div
                     className="flex items-center text-gray-400 hover:text-indigo-300 transition-colors"
                     whileHover={{ x: 5 }}
@@ -1006,17 +1018,17 @@ export default function Portfolio() {
                       whileTap={{ scale: 0.9 }}
                     >
                       <a href="https://www.linkedin.com/in/sagarchaurasia74" target="_blank">
-                      <Linkedin size={18} />
+                        <Linkedin size={18} />
                       </a>
                     </motion.button>
-            
+
                     <motion.button
                       className="p-2 bg-slate-800 hover:bg-slate-700 rounded-full border border-slate-700 text-gray-400 hover:text-indigo-300 transition-colors"
                       whileHover={{ y: -5 }}
                       whileTap={{ scale: 0.9 }}
                     >
                       <a href="https://github.com/sagarchaurasia176" target="_blank">
-                      <Github size={18} />
+                        <Github size={18} />
                       </a>
                     </motion.button>
                   </div>
@@ -1027,93 +1039,93 @@ export default function Portfolio() {
                   Send a Message
                 </h3>
                 {/* form with w3 combinations */}
-      
-      <form className="space-y-4" onSubmit={onSubmit}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-          >
-            <label className="block text-gray-400 mb-2">Name</label>
-            <input
-              type="text"
-              name="name"
-              required
-              className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg focus:outline-none focus:border-indigo-500 text-gray-200 placeholder-gray-500"
-              placeholder="Your name"
-            />
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
-          >
-            <label className="block text-gray-400 mb-2">Email</label>
-            <input
-              type="email"
-              name="email"
-              required
-              className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg focus:outline-none focus:border-indigo-500 text-gray-200 placeholder-gray-500"
-              placeholder="Your email"
-            />
-          </motion.div>
-        </div>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-        >
-          <label className="block text-gray-400 mb-2">Subject</label>
-          <input
-            type="text"
-            name="subject"
-            required
-            className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg focus:outline-none focus:border-indigo-500 text-gray-200 placeholder-gray-500"
-            placeholder="Subject"
-          />
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
-        >
-          <label className="block text-gray-400 mb-2">Message</label>
-          <textarea
-            name="message"
-            rows={4}
-            required
-            className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg focus:outline-none focus:border-indigo-500 text-gray-200 placeholder-gray-500"
-            placeholder="Your message"
-          ></textarea>
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.6 }}
-        >
-          <motion.button
-            type="submit"
-            className=" cursor-pointer w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white py-3 px-6 rounded-lg font-medium shadow-lg hover:shadow-indigo-500/20 transition-all"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            Send Message
-          </motion.button>
-          
-  {/* ✅ Add this below the button */}
-  {result && (
-    <p className="text-green-400 text-center font-medium mt-2">
-      {result}
-    </p>
-  )}
-        </motion.div>
-      </form>
+
+                <form className="space-y-4" onSubmit={onSubmit}>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <motion.div
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.2 }}
+                    >
+                      <label className="block text-gray-400 mb-2">Name</label>
+                      <input
+                        type="text"
+                        name="name"
+                        required
+                        className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg focus:outline-none focus:border-indigo-500 text-gray-200 placeholder-gray-500"
+                        placeholder="Your name"
+                      />
+                    </motion.div>
+                    <motion.div
+                      initial={{ opacity: 0, x: 20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.3 }}
+                    >
+                      <label className="block text-gray-400 mb-2">Email</label>
+                      <input
+                        type="email"
+                        name="email"
+                        required
+                        className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg focus:outline-none focus:border-indigo-500 text-gray-200 placeholder-gray-500"
+                        placeholder="Your email"
+                      />
+                    </motion.div>
+                  </div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.4 }}
+                  >
+                    <label className="block text-gray-400 mb-2">Subject</label>
+                    <input
+                      type="text"
+                      name="subject"
+                      required
+                      className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg focus:outline-none focus:border-indigo-500 text-gray-200 placeholder-gray-500"
+                      placeholder="Subject"
+                    />
+                  </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.5 }}
+                  >
+                    <label className="block text-gray-400 mb-2">Message</label>
+                    <textarea
+                      name="message"
+                      rows={4}
+                      required
+                      className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg focus:outline-none focus:border-indigo-500 text-gray-200 placeholder-gray-500"
+                      placeholder="Your message"
+                    ></textarea>
+                  </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.6 }}
+                  >
+                    <motion.button
+                      type="submit"
+                      className=" cursor-pointer w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white py-3 px-6 rounded-lg font-medium shadow-lg hover:shadow-indigo-500/20 transition-all"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      Send Message
+                    </motion.button>
+
+                    {/* ✅ Add this below the button */}
+                    {result && (
+                      <p className="text-green-400 text-center font-medium mt-2">
+                        {result}
+                      </p>
+                    )}
+                  </motion.div>
+                </form>
               </div>
             </div>
           </motion.div>
@@ -1193,7 +1205,7 @@ export default function Portfolio() {
                 >
                   <Linkedin size={20} />
                 </motion.a>
-            
+
               </div>
             </motion.div>
           </div>
