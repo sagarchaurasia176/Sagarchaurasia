@@ -19,7 +19,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import "./App.css";
 import logo from "../Code.png";
 import logos from "../src/logos.jpg";
-import MyImg from "../my.png";
 import Sagar from "./sk.png";
 // Type definitions
 import DrBuddy from "./chrs.png";
