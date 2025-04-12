@@ -1129,11 +1129,11 @@ export default function Portfolio() {
               viewport={{ once: true }}
             >
               <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">
-                DevCraft
+                Sagar❤️Chaurasia
               </h3>
               <p className="max-w-md">
-                Crafting digital experiences with clean code and thoughtful
-                design.
+                A passionate developer with a knack for creating innovative
+                solutions. Let's connect and build something amazing together!
               </p>
             </motion.div>
             <motion.div
