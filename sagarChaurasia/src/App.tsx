@@ -128,7 +128,7 @@ export default function Portfolio() {
       id: 2,
       title: "Code-Analyzer–(Chrome Extension)",
       description:"The (Code-Analyzer) Chrome Extension is designed to help developers optimize their algorithms by providing instant insights into time and space complexity. Whether you are browsing coding platforms, reviewing code snippets, or working on your own projects, this extension simplifies complexity analysis, allowing you to write more efficient and optimized code.",
-      tags: ["Html", "Css", "Js", "Tailwind CSS"],
+      tags: ["Typescript","React","Tailwind CSS","Node.Js,","Express.js","MongoDB" , "Firebase" , "Docker" , "Cloudflare"],
       imageUrl: Dboard,
       LiveUrl: "https://canalyzer.dev-saga.in",
       githubUrl:
