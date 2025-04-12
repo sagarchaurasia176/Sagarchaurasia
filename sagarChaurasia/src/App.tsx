@@ -6,7 +6,6 @@ import {
   ExternalLink,
   User,
   Briefcase,
-  Mail,
   Github,
   Linkedin,
   Code,
@@ -66,6 +65,8 @@ type Skill = {
 export default function Portfolio() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const [scrollY, setScrollY] = useState(0);
+  console.log(scrollY);
   const [result, setResult] = useState("");
 
 
@@ -256,23 +257,6 @@ export default function Portfolio() {
     },
   };
 
-  const stagger = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const fadeIn = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { duration: 0.6 },
-    },
-  };
 
   const [hideCursor, setHideCursor] = useState(false);
 
@@ -1194,33 +1178,22 @@ export default function Portfolio() {
               </h4>
               <div className="flex space-x-4">
                 <motion.a
-                  href="#"
+                  href="https://github.com/sagarchaurasia176"
+                  target="_blank"
                   className="hover:text-indigo-300 transition-colors"
                   whileHover={{ y: -5 }}
                 >
                   <Github size={20} />
                 </motion.a>
                 <motion.a
-                  href="#"
+                  href="https://www.linkedin.com/in/sagarchaurasia74"
+                  target="_blank"
                   className="hover:text-indigo-300 transition-colors"
                   whileHover={{ y: -5 }}
                 >
                   <Linkedin size={20} />
                 </motion.a>
-                <motion.a
-                  href="#"
-                  className="hover:text-indigo-300 transition-colors"
-                  whileHover={{ y: -5 }}
-                >
-                  <Twitter size={20} />
-                </motion.a>
-                <motion.a
-                  href="#"
-                  className="hover:text-indigo-300 transition-colors"
-                  whileHover={{ y: -5 }}
-                >
-                  <Mail size={20} />
-                </motion.a>
+            
               </div>
             </motion.div>
           </div>
