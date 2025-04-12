@@ -9,7 +9,6 @@ import {
   Mail,
   Github,
   Linkedin,
-  Twitter,
   Code,
   Server,
   Database,
@@ -67,7 +66,6 @@ type Skill = {
 export default function Portfolio() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
-  const [scrollY, setScrollY] = useState(0);
   const [result, setResult] = useState("");
 
 
