@@ -612,8 +612,8 @@ export default function Portfolio() {
               </a>
 
               <a
-                href="/resume.pdf"
-                download="Sagar_Chaurasia_Resume.pdf"
+                href="https://drive.google.com/file/d/1yLhWEXnaMhpPMgvxwMdFHqUui6inJNoe/view?usp=sharing"
+                download="sagarchaurasia.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto"
