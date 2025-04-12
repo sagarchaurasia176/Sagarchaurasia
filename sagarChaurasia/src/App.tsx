@@ -126,9 +126,8 @@ export default function Portfolio() {
     },
     {
       id: 2,
-      title: "Github-Profile Viewer",
-      description:
-        "Github-Profile Viewer is a web application that allows users to view and analyze GitHub profiles. It provides insights into repositories, contributions, and other relevant information about GitHub users.",
+      title: "Code-Analyzer–(Chrome Extension)",
+      description:"The (Code-Analyzer) Chrome Extension is designed to help developers optimize their algorithms by providing instant insights into time and space complexity. Whether you are browsing coding platforms, reviewing code snippets, or working on your own projects, this extension simplifies complexity analysis, allowing you to write more efficient and optimized code.",
       tags: ["Html", "Css", "Js", "Tailwind CSS"],
       imageUrl: Dboard,
       LiveUrl: "https://canalyzer.dev-saga.in",
