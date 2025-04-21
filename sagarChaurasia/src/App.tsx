@@ -612,7 +612,7 @@ export default function Portfolio() {
               </a>
 
               <a
-                href="https://drive.google.com/file/d/1yLhWEXnaMhpPMgvxwMdFHqUui6inJNoe/view?usp=sharing"
+                href="https://drive.google.com/file/d/1oIah83fJx0PeTtXdjVTsEVbnUsRo9kcO/view?usp=sharing"
                 download="sagarchaurasia.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
