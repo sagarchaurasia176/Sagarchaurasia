@@ -1,3 +1,10 @@
+/*
+This is my personal portfolio website, built with React and TypeScript.
+Feel free to explore my projects, skills, and experience.
+Sagar Chaurasia
+
+*/ 
+
 import { useState, useEffect } from "react";
 import {
   Menu,
