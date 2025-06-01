@@ -1,2 +1,0 @@
-# Sagarchaurasia
-My-personal portfolio
