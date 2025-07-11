@@ -1,13 +1,8 @@
-/*
-This is my personal portfolio website, built with React and TypeScript.
-Feel free to explore my projects, skills, and experience.
-Sagar Chaurasia
-*/ 
 import { useState, useEffect } from "react";
+// file updated
 import {
   Menu,
   X,
-  ChevronRight,
   ExternalLink,
   User,
   Briefcase,
@@ -21,58 +16,55 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import "./App.css";
 import logo from "../Code.png";
-import logos from "../src/logos.jpg";
-import Sagar from "./sk.png";
-// Type definitions
-import DrBuddy from "./chrs.png";
-import CodeAna from "./chr.png";
-import Dboard from "./db.png";
-import Tc from "./tc.png";
-import detector from "./detector.png";
-import learnify from "./learnify.png";
-import certificate from "./Certificate.png";
+import Sagar from "./sk.jpg";
+import {projects , otherProj , experiences , skills, certificates } from './data/AllWebsiteData'
+import cursorHook from "./hooks/hideCursor";
+import scrollHooks from "./hooks/scrollHooks";
+import Home from './pages/Home';
 
-type Project = {
-  id: number;
-  title: string;
-  description: string;
-  tags: string[];
-  imageUrl: string;
-  LiveUrl: string;
-  githubUrl?: string;
-};
-
-type Projects = {
-  id: number;
-  title: string;
-  description: string;
-  tags: string[];
-  imageUrl: string;
-  LiveUrl: string;
-  githubUrl?: string;
-};
-
-type Experience = {
-  id: number;
-  company: string;
-  role: string;
-  period: string;
-  description: string;
-  techStack?: string[];
-  image: string;
-};
-
-type Skill = {
-  category: string;
-  items: string[];
-};
-
+// Portfolio's
 export default function Portfolio() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
-  const [scrollY, setScrollY] = useState(0);
-  console.log(scrollY);
   const [result, setResult] = useState("");
+  const{hideCursor , setHideCursor} = cursorHook();
+  const{activeSection ,isMenuOpen , setIsMenuOpen ,scrollToSection} = scrollHooks();
+  
+const fadeInUps = {
+  hidden: { opacity: 0, y: 60 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { 
+      duration: 0.6, 
+      ease: "easeOut" 
+    } 
+  }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.1
+    }
+  }
+};
+
+const certificateCard = {
+  hidden: { opacity: 0, y: 50, scale: 0.9 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    scale: 1,
+    transition: { 
+      duration: 0.6, 
+      ease: "easeOut",
+      type: "spring",
+      stiffness: 100
+    } 
+  }
+};
 
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -100,156 +92,7 @@ export default function Portfolio() {
     }
   };
 
-  // Track scroll position for animations
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // Sample projects data
-  const projects: Project[] = [
-    {
-      id: 1,
-      title: "Dr-Buddy – DSA Revision Buddy (Chrome Extension)",
-      description:
-        "Dr-Buddy is a productivity-focused Chrome extension designed to help you track your DSA (Data Structures & Algorithms) progress. It reminds you at the right time with Chrome notifications, making it perfect for consistent daily practice and preparing for coding interviews! 💻🔔",
-      tags: [
-        "React",
-        "TypeScript",
-        "Firebase",
-        "Chrome Extension APIs",
-        "Tailwind CSS",
-        "Webpack",
-      ],
-      imageUrl: DrBuddy,
-      LiveUrl: "https://drbuddy.dev-saga.in",
-      githubUrl: "https://github.com/sagarchaurasia176/DRB_ChromeExtension",
-    },
-    {
-      id: 2,
-      title: "Code-Analyzer–(Chrome Extension)",
-      description:"The (Code-Analyzer) Chrome Extension is designed to help developers optimize their algorithms by providing instant insights into time and space complexity. Whether you are browsing coding platforms, reviewing code snippets, or working on your own projects, this extension simplifies complexity analysis, allowing you to write more efficient and optimized code.",
-      tags: ["Typescript","React","Tailwind CSS","Node.Js,","Express.js","MongoDB" , "Firebase" , "Docker" , "Cloudflare"],
-      imageUrl: Dboard,
-      LiveUrl: "https://canalyzer.dev-saga.in",
-      githubUrl:
-        "https://github.com/sagarchaurasia176/Code-Analyzer-chrome-extension",
-    },
-    {
-      id: 3,
-      title: "Dashcraft – Dashboard Template",
-      description:
-        "Dashcraft is a powerful dashboard template built with React and Tailwind CSS, designed to help developers quickly kickstart their projects with a modern and responsive UI. It includes various components, charts, and layouts to assist you in creating stunning web applications in no time.",
-      tags: [
-        "React",
-        "Tailwind CSS",
-        "TypeScript",
-        "Framer Motion",
-        "Firebase",
-        "GSAP",
-      ],
-      imageUrl: CodeAna,
-      LiveUrl: "https://dashcraft.manishlal.live",
-      githubUrl: "https://github.com/sagarchaurasia176/DashboardUI",
-    },
-  ];
-
-  // other project
-  const otherProj: Projects[] = [
-    {
-      id: 1,
-      title: "Code-Analyzer|Frontend using Gemini AI",
-      description:
-        "A Time Complexity Analyzer is a tool or program that helps determine how efficiently an algorithm or piece of code runs.",
-      tags: [
-        "Html",
-        "Css",
-        "Js",
-        "React",
-        "Tailwind CSS",
-        "Gemini AI",
-        "Firebase",
-      ],
-      imageUrl: Tc,
-      LiveUrl: "https://tcanalyzer.dev-saga.in",
-      githubUrl: "https://github.com/sagarchaurasia176/TcAnalyzer",
-    },
-    {
-      id: 2,
-      title: "Github Profile Previewer",
-      description:
-        "Github Profile Previewer is a web application that allows users to view and analyze GitHub profiles. It provides insights into repositories, contributions, and other relevant information about GitHub users.",
-      tags: ["Html", "Css", "Js", "Tailwind CSS"],
-      imageUrl: detector,
-      LiveUrl: "https://github-detectors.vercel.app",
-      githubUrl: "https://github.com/sagarchaurasia176/GithubDetector",
-    },
-
-    {
-      id: 3,
-      title: "Learnify – Online Learning Platform (Pure Backend)",
-      description:
-        " Learnify is an online learning and teaching platform that offers a wide range of courses on various subjects, including technology, business, personal development, students can purchase and access these courses on-demand.",
-      tags: ["Node.js", "Express.js", "MongoDB", "Cloudflare"],
-      imageUrl: learnify,
-      LiveUrl: "https://github.com/sagarchaurasia176/Learnify---Backend",
-      githubUrl: "https://github.com/sagarchaurasia176/Learnify---Backend",
-    },
-  ];
-
-  // Sample work experience
-  const experiences: Experience[] = [
-    {
-      id: 1,
-      company: "A2IT - Tech Solutions",
-      role: "Frontend Developer Intern",
-      period: "July 2021 - Sep 2021",
-      description:
-        "In this internship, I learned HTML, CSS, JS, and PHP, and did several projects like e-commerce, travel, food website, and several UI to learn to make websites responsive.  ",
-      techStack: ["Html", " Css", "Js", "PHP"],
-      image: certificate,
-    },
-  ];
-
-  // Skills data
-  const skills: Skill[] = [
-    {
-      category: "Frontend",
-      items: ["React", "TypeScript", "Tailwind CSS", "Framer Motion"],
-    },
-    {
-      category: "Backend",
-      items: [
-        "Node.js",
-        "Express",
-        "REST API Design",
-        "Authentication",
-        "Security",
-        "firebase",
-      ],
-    },
-    {
-      category: "Database",
-      items: ["MongoDB", "PostgreSQL (familiar)"],
-    },
-    {
-      category: "DevOps",
-      items: ["Docker", "Nginx", "Cloudflare"],
-    },
-  ];
-
-  const scrollToSection = (sectionId: string) => {
-    setActiveSection(sectionId);
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-    setIsMenuOpen(false);
-  };
+  // scroll
 
   // Animation variants
   const fadeInUp = {
@@ -260,10 +103,6 @@ export default function Portfolio() {
       transition: { duration: 0.6, ease: "easeOut" },
     },
   };
-
-
-  const [hideCursor, setHideCursor] = useState(false);
-
   useEffect(() => {
     const timeout = setTimeout(() => {
       setHideCursor(true);
@@ -361,126 +200,9 @@ export default function Portfolio() {
     </motion.header>
 
      {/* Hero Section */}
-     <section
-      id="home"
-      className="pt-28 sm:pt-32 pb-16 sm:pb-20 bg-gradient-to-br from-slate-900 to-slate-950"
-    >
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row items-center">
-          <motion.div
-            className="w-full md:w-1/2 mb-10 md:mb-0"
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <motion.h1
-              className="text-3xl sm:text-4xl md:text-6xl font-extrabold mb-6 leading-tight tracking-wide drop-shadow-lg"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
-            >
-              <span className="text-base md:text-lg bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent drop-shadow-md font-semibold">
-                Hello World! My name is
-              </span>
-              <br />
-              <span className="text-gray-100 drop-shadow-lg font-sans">
-                Sagar Chaurasia
-              </span>
-            </motion.h1>
-            <motion.p
-              className="text-xl sm:text-2xl md:text-4xl font-extrabold mb-6 leading-snug tracking-wide text-white drop-shadow-[0_4px_6px_rgba(0,0,0,0.3)]"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
-            >
-              <span
-                className={`typing-effect block w-fit ${
-                  hideCursor ? "cursor-hidden" : ""
-                }`}
-              >
-                I love to explore & code!
-              </span>
-            </motion.p>
-
-            <motion.div
-              className="text-gray-400 mb-8 max-w-lg"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5, duration: 0.8 }}
-            >
-              An aspiring software engineer with the ability to grow as an
-              individual and learn in the surrounding of talented people. I am
-              always open for discussions. &nbsp;
-              <a
-                href="https://www.linkedin.com/in/sagarchaurasia74/"
-                target="_blank"
-                className="text-orange-200 underline font-bold"
-              >
-                @Linkedin
-              </a>
-            </motion.div>
-
-            <motion.div
-              className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
-            >
-              <motion.button
-                onClick={() => scrollToSection("projects")}
-                className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white py-3 px-8 rounded-lg font-medium flex items-center justify-center shadow-lg hover:shadow-indigo-500/20 transition-all"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Explore My Work <ChevronRight size={18} className="ml-2" />
-              </motion.button>
-              <motion.button
-                onClick={() => scrollToSection("contact")}
-                className="bg-slate-800 hover:bg-slate-700 text-indigo-400 border border-slate-700 py-3 px-8 rounded-lg font-medium transition-colors"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Let's Collaborate
-              </motion.button>
-            </motion.div>
-          </motion.div>
-          <motion.div
-            className="w-full md:w-1/2 flex justify-center"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-          >
-            <div className="relative">
-              <motion.div
-                className="w-56 h-56 sm:w-64 sm:h-64 md:w-80 md:h-80 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-full overflow-hidden shadow-xl"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                <img
-                  src={logos}
-                  alt="Portfolio Owner"
-                  className="w-full h-full object-cover opacity-90"
-                />
-              </motion.div>
-              <motion.div
-                className="absolute -bottom-6 -right-6 bg-slate-800 shadow-lg rounded-lg p-3 sm:p-4 w-28 sm:w-32 text-center border border-slate-700"
-                initial={{ opacity: 0, scale: 0, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ delay: 0.8, duration: 0.5 }}
-              >
-                <p className="font-bold text-indigo-400">Software</p>
-                <p className="text-sm text-gray-400">Developer</p>
-              </motion.div>
-            </div>
-          </motion.div>
-        </div>
-      </div>
-    </section>
-
-
+        <Home/>
     {/* about section */}
-                  
-
+                
     <section
       id="about"
       className="py-16 sm:py-20 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-950 border-t border-slate-800"
@@ -636,7 +358,6 @@ export default function Portfolio() {
         </div>
       </div>
     </section>
-
 
         {/* Projects Section */}
         <section id="projects" className="py-16 sm:py-20 bg-slate-900">
@@ -891,6 +612,129 @@ export default function Portfolio() {
           </motion.div>
         </div>
       </section>
+      <br />
+      <br />
+
+
+
+  {/* certificate sections              */}
+  <section className="py-20 bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-900 relative overflow-hidden">
+      {/* Background decorative elements */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-indigo-500 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-blue-500 rounded-full blur-3xl"></div>
+      </div>
+      
+      {/* Grid pattern overlay */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="w-full h-full" style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)`,
+          backgroundSize: '40px 40px'
+        }}></div>
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
+        <motion.div
+          className="text-center mb-16"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={fadeInUps}
+        >
+          <motion.div
+            className="inline-block mb-4"
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 400 }}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+              Certificates
+            </h2>
+          </motion.div>
+          <p className="text-gray-300 max-w-lg mx-auto text-lg">
+            Professional certifications that showcase my expertise and commitment to continuous learning in web development.
+          </p>
+        </motion.div>
+
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+        >
+          {certificates.map((cert, index) => (
+            <motion.div
+              key={index}
+              className="group relative"
+              variants={certificateCard}
+              whileHover={{ y: -10 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <div className="relative bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-slate-700/50 hover:border-indigo-500/50 transition-all duration-300">
+                {/* Gradient overlay on hover */}
+                <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                
+                {/* Certificate image */}
+                <div className="relative overflow-hidden">
+                  <motion.img
+                    src={cert.image}
+                    alt={cert.heading}
+                    className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
+                    whileHover={{ scale: 1.05 }}
+                  />
+                  
+                  {/* Shine effect */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                </div>
+                
+                {/* Certificate content */}
+                <div className="p-6 relative z-10">
+                  <motion.h3
+                    className="text-xl font-bold text-gray-100 mb-2 group-hover:text-indigo-300 transition-colors duration-300"
+                    whileHover={{ x: 5 }}
+                    transition={{ type: "spring", stiffness: 400 }}
+                  >
+                    {cert.heading}
+                  </motion.h3>
+                  
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-gray-400">
+                      Certified Developer
+                    </span>
+                    
+                    <motion.div
+                      className="w-8 h-8 bg-indigo-500/20 rounded-full flex items-center justify-center group-hover:bg-indigo-500/30 transition-colors duration-300"
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      <svg className="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </motion.div>
+                  </div>
+                </div>
+                
+                {/* Glowing border effect */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-sm"></div>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+        
+        {/* Bottom decorative line */}
+        <motion.div
+          className="mt-16 flex justify-center"
+          initial={{ opacity: 0, scaleX: 0 }}
+          whileInView={{ opacity: 1, scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5, duration: 0.8 }}
+        >
+          <div className="w-24 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-full"></div>
+        </motion.div>
+      </div>
+    </section>
+
 
       {/* Experience Section */}
       <section id="experience" className="py-20 bg-slate-900">
