@@ -1,4 +1,4 @@
-import { frame, motion } from "framer-motion";
+import {motion } from "framer-motion";
 import cursorHook from "../hooks/hideCursor";
 // import ChevronRight from "lucide-react";
 import {ChevronRight} from 'lucide-react'
@@ -7,6 +7,8 @@ import logos from '../logos.jpg';
 import scrollHooks from "../hooks/scrollHooks";
 export const Home = () => {
   const { hideCursor, setHideCursor } = cursorHook();
+  console.log(setHideCursor);
+  
   const{scrollToSection} = scrollHooks()
   return (
     <section

@@ -26,6 +26,8 @@ import Home from './pages/Home';
 export default function Portfolio() {
   const [result, setResult] = useState("");
   const{hideCursor , setHideCursor} = cursorHook();
+  console.log(hideCursor);
+  
   const{activeSection ,isMenuOpen , setIsMenuOpen ,scrollToSection} = scrollHooks();
   
 const fadeInUps = {
